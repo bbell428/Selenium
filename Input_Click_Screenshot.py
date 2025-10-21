@@ -35,5 +35,5 @@ time.sleep(2)
 driver.find_element(By.ID, "query").send_keys(Keys.ENTER) # 엔터키를 작동시킴
 time.sleep(5)
 
-# driver.save_screenshot("naver_테스트.png")
-# driver.quit() # 창 닫기
+driver.save_screenshot("naver_테스트.png")
+driver.quit() # 창 닫기
