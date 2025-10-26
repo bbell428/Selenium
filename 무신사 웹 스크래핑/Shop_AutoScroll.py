@@ -16,7 +16,7 @@ time.sleep(2)
 # 2. 스크롤 설정
 scroll_step = 500         # 한 번에 내리는 픽셀 단위
 interval = 1              # 스크롤 간격 (초)
-max_scroll_time = 30      # 스크롤 시간 제한 (초)
+max_scroll_time = 10      # 스크롤 시간 제한 (초)
 start_time = time.time()
 
 collected_titles = set()  # 중복 방지
@@ -32,9 +32,15 @@ while True:
         title_tag = post.find("p", attrs={"class":"text-body_13px_reg line-clamp-2 break-all whitespace-break-spaces text-black font-pretendard"})
         if title_tag:
             title = title_tag.get_text()
-            if title not in collected_titles:
+            if title not in collected_titles: # set에 없다면 해당 title 출력
                 collected_titles.add(title)
+ 
+                price = post.find("span", attrs={"class":"text-body_13px_semi UIProductColumn__PriceText-sc-1t5ihy5-11 cZhItm text-black font-pretendard"}).get_text() # 가격
+                link = post.find("a", attrs={"class":"UIProductColumn__Anchor-sc-1t5ihy5-8 EyWwa gtm-select-item"})["href"] # 링크
+                                  
                 print(f"[{len(collected_titles)}] {title}")
+                print(f"[가격: {price}")
+                print(f"링크: {link}")
 
     # 스크롤 내리기
     browser.execute_script(f"window.scrollBy(0, {scroll_step});")
@@ -49,4 +55,4 @@ print("최종 수집된 상품 개수:", len(collected_titles))
 print("수집 완료!")
 
 # 브라우저 닫기
-# browser.quit()
+browser.quit()
