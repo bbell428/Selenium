@@ -17,7 +17,7 @@ time.sleep(2)
 scroll_step = 500         # 한 번에 내리는 픽셀 단위
 interval = 1              # 스크롤 간격 (초)
 max_scroll_time = 10      # 스크롤 시간 제한 (초)
-start_time = time.time()
+start_time = time.time()  # 타이머의 시작 시각 (초)
 
 collected_titles = set()  # 중복 방지
 
