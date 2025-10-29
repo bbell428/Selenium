@@ -8,9 +8,9 @@ chrome_options = Options()
 chrome_options.add_argument("--start-maximized")  # 창 최대화
 chrome_options.add_experimental_option("detach", True)  # 창 자동 닫힘 방지
 
-browser = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome(options=chrome_options)
 url = "https://www.musinsa.com/main/musinsa/ranking?gf=A&storeCode=musinsa&sectionId=200&contentsId=&categoryCode=000&ageBand=AGE_BAND_ALL"
-browser.get(url)
+driver.get(url)
 time.sleep(2)
 
 # 2. 스크롤 설정
@@ -24,7 +24,7 @@ collected_titles = set()  # 중복 방지
 # 3. 스크롤하면서 제목 실시간 추출
 while True:
     # HTML 파싱
-    soup = BeautifulSoup(browser.page_source, "lxml")
+    soup = BeautifulSoup(driver.page_source, "lxml")
     posts = soup.find_all("div", attrs={"class":"pl-3 pr-2 pt-3 pb-6 bg-white UIProductColumn__InfoItem-sc-1t5ihy5-7 diMGVt"})
 
     # 제목 추출
@@ -43,7 +43,7 @@ while True:
                 print(f"링크: {link}")
 
     # 스크롤 내리기
-    browser.execute_script(f"window.scrollBy(0, {scroll_step});")
+    driver.execute_script(f"window.scrollBy(0, {scroll_step});")
     time.sleep(interval)
 
     # 시간 초과 시 중단
@@ -55,4 +55,4 @@ print("최종 수집된 상품 개수:", len(collected_titles))
 print("수집 완료!")
 
 # 브라우저 닫기
-browser.quit()
+driver.quit()
